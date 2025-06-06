@@ -1,13 +1,13 @@
 import './pages/index.css';
 import { initialCards } from './scripts/cards';
 import { createCard, handleLike, deleteCard } from './components/card';
-import { openModal, closeModal } from './components/modal';
+import { openModal, closeModal, setModalEventListeners } from './components/modal';
 
 // @todo: DOM узлы
 const containerCard = document.querySelector('.places__list');
 
 // @todo: Вывести карточки на страницу
-function outputCard() {
+function outputCards() {
   initialCards.forEach((dataCard) => {
     const card = createCard(dataCard.name, dataCard.link, handleLike, deleteCard);
     containerCard.append(card);
@@ -15,7 +15,7 @@ function outputCard() {
 }
 
 // Вызов функции для отображения карточек
-outputCard();
+outputCards();
 
 // кнопка редактирования профиля
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -59,31 +59,14 @@ buttonsClose.forEach((button) => {
   button.addEventListener('click', () => closeModal(popup));
 })
 
-// закрытие попапов по клику на оверлей
-document.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup_is-opened')) {
-    closeModal(evt.target);
-  }
-});
-
-// закрытие попапов по нажатию клавиши Escape
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_is-opened');
-    if (openedPopup) {
-      closeModal(openedPopup);
-    }
-  }
-});
-
 // Находим форму в DOM
-const formElement = document.querySelector('.popup__form[name="edit-profile"]');
+const formEditProfile = document.querySelector('.popup__form[name="edit-profile"]');
 // Находим поля формы в DOM
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
 
 // Обработчик «отправки» формы
-function handleFormSubmit(evt) {
+function handleEditProfileFormSubmit(evt) {
     evt.preventDefault(); // Отмена стандартной отправки
 
     // Получаем значения полей
@@ -103,7 +86,7 @@ function handleFormSubmit(evt) {
 }
 
 // Прикрепляем обработчик к форме
-formElement.addEventListener('submit', handleFormSubmit);
+formEditProfile.addEventListener('submit', handleEditProfileFormSubmit);
 
 const formAddCard = document.querySelector('.popup__form[name="new-place"]');
 const inputCardName = document.querySelector('.popup__input_type_card-name');
@@ -130,3 +113,6 @@ function handleAddCardSubmit(evt) {
 }
 
 formAddCard.addEventListener('submit', handleAddCardSubmit);
+
+// Установка слушателей событий для закрытия попапов
+setModalEventListeners();
