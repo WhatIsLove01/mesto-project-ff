@@ -9,7 +9,13 @@ const containerCard = document.querySelector('.places__list');
 // @todo: Вывести карточки на страницу
 function outputCards() {
   initialCards.forEach((dataCard) => {
-    const card = createCard(dataCard.name, dataCard.link, handleLike, deleteCard);
+    const card = createCard(
+      dataCard.name,
+      dataCard.link,
+      handleLike,
+      deleteCard,
+      handleCardClick // обязательно передаём!
+    );
     containerCard.append(card);
   });
 }
@@ -100,7 +106,13 @@ function handleAddCardSubmit(evt) {
   const link = inputCardLink.value;
 
   // Создаём новую карточку
-  const newCard = createCard(name, link, handleLike, deleteCard);
+  const newCard = createCard(
+    name,
+    link,
+    handleLike,
+    deleteCard,
+    handleCardClick // обязательно передаём!
+  );
 
   // Добавляем карточку в начало контейнера
   containerCard.prepend(newCard);
@@ -113,6 +125,17 @@ function handleAddCardSubmit(evt) {
 }
 
 formAddCard.addEventListener('submit', handleAddCardSubmit);
+
+// функция-обработчик клика по изображению карточки
+function handleCardClick(name, link) {
+  const popupImage = document.querySelector('.popup_type_image');
+  const popupImg = popupImage.querySelector('.popup__image');
+  const popupCaption = popupImage.querySelector('.popup__caption');
+  popupImg.src = link;
+  popupImg.alt = name;
+  popupCaption.textContent = name;
+  openModal(popupImage);
+}
 
 // Установка слушателей событий для закрытия попапов
 setModalEventListeners();

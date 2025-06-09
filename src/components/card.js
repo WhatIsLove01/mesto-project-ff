@@ -1,4 +1,4 @@
-function createCard(name, imageSrc, handleLike, handleDelete) {
+function createCard(name, imageSrc, handleLike, handleDelete, handleImageClick) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
 
@@ -15,15 +15,9 @@ function createCard(name, imageSrc, handleLike, handleDelete) {
 
   // --- Обработчик открытия попапа с картинкой ---
   cardImage.addEventListener('click', function() {
-    const popupImage = document.querySelector('.popup_type_image');
-    const popupImg = popupImage.querySelector('.popup__image');
-    const popupCaption = popupImage.querySelector('.popup__caption');
-    popupImg.src = imageSrc;
-    popupImg.alt = name;
-    popupCaption.textContent = name;
-    // Открытие попапа реализуется в index.js, чтобы не было зависимости от modal.js
-    const openModal = window.openModal || ((popup) => popup.classList.add('popup_is-opened'));
-    openModal(popupImage);
+    if (typeof handleImageClick === 'function') {
+      handleImageClick(name, imageSrc);
+    }
   });
 
   const likeButton = cardElement.querySelector('.card__like-button');
