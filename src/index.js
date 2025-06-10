@@ -1,7 +1,7 @@
 import './pages/index.css';
 import { initialCards } from './scripts/cards';
 import { createCard, handleLike, deleteCard } from './components/card';
-import { openModal, closeModal, setModalEventListeners } from './components/modal';
+import { openModal, closeModal, setModalEventListeners, closeByOverlay } from './components/modal';
 
 // @todo: DOM узлы
 const containerCard = document.querySelector('.places__list');
@@ -139,3 +139,6 @@ function handleCardClick(name, link) {
 
 // Установка слушателей событий для закрытия попапов
 setModalEventListeners();
+
+// Добавляем слушатель для закрытия по оверлею
+document.addEventListener('click', closeByOverlay);

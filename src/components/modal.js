@@ -17,21 +17,18 @@ function handleEscClose(evt) {
   }
 }
 
-export { openModal, closeModal };
+const closeByOverlay = evt => {
+  if (evt.target.classList.contains('popup_is-opened')) {
+    closeModal(evt.target);
+  }
+};
+
+export { openModal, closeModal, closeByOverlay };
 
 export function setModalEventListeners() {
   document.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup_is-opened')) {
       closeModal(evt.target);
-    }
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_is-opened');
-      if (openedPopup) {
-        closeModal(openedPopup);
-      }
     }
   });
 }
