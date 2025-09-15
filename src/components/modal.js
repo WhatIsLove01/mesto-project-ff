@@ -1,34 +1,25 @@
-function openModal(popup) {
-  popup.classList.add('popup_is-opened');
-  document.addEventListener('keydown', handleEscClose);
-}
-
-function closeModal(popup) {
-  popup.classList.remove('popup_is-opened');
-  document.removeEventListener('keydown', handleEscClose);
-}
-
-function handleEscClose(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_is-opened');
-    if (openedPopup) {
-      closeModal(openedPopup);
-    }
+// Функция открытия модального окна
+export function openModal(popupElement) {
+  if (!popupElement.classList.contains("popup_is-opened")) {
+    popupElement.classList.add("popup_is-opened");
   }
+  // навешиваем слушатель только один раз
+  document.addEventListener("keydown", (event) => handleEscClose(event));
 }
 
-const closeByOverlay = evt => {
-  if (evt.target.classList.contains('popup_is-opened')) {
-    closeModal(evt.target);
+// Функция закрытия модального окна
+export function closeModal(popupElement) {
+  if (popupElement.classList.contains("popup_is-opened")) {
+    popupElement.classList.remove("popup_is-opened");
   }
-};
+  // снимаем слушатель
+  document.removeEventListener("keydown", handleEscClose);
+}
 
-export { openModal, closeModal, closeByOverlay };
-
-export function setModalEventListeners() {
-  document.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup_is-opened')) {
-      closeModal(evt.target);
-    }
-  });
+// Функция-обработчик для Esc
+function handleEscClose(event) {
+  if (event.code === "Escape") {
+    const openedPopup = document.querySelector(".popup_is-opened");
+    openedPopup && closeModal(openedPopup);
+  }
 }
