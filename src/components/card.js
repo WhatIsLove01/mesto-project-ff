@@ -40,7 +40,7 @@ function createCard(
 
   // Управление кнопкой удаления
   if (cardInfo.owner && cardInfo.owner._id !== currentUserId) {
-    btnDelete.style.display = "none";
+    btnDelete.classList.add("card__delete-button_hidden");
   }
 
   // Проверка, лайкнута ли карточка текущим пользователем
