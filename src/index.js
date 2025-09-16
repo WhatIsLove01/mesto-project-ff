@@ -156,21 +156,24 @@ function handleDeleteButtonClick(cardElement, cardId) {
 }
 
 cardDeleteBtn.addEventListener("click", () => {
-  if (cardPendingDelete) {
-    const { cardElement, cardId } = cardPendingDelete;
-    const originalText = cardDeleteBtn.textContent;
-    setLoadingState(true, cardDeleteBtn, originalText, "Удаление...");
-    removeCard(cardId)
-      .then(() => {
-        removeCardElement(cardElement); 
-        closeModal(cardDeletePopupNode);
-      })
-      .catch((err) => console.error(`Ошибка при удалении карточки: ${err}`))
-      .finally(() => {
-        setLoadingState(false, cardDeleteBtn, originalText);
-        cardPendingDelete = null;
-      });
-  }
+  if (!cardPendingDelete) return; // защита, если карточка уже не задана
+
+  const { cardElement, cardId } = cardPendingDelete;
+  const originalText = cardDeleteBtn.textContent;
+  setLoadingState(true, cardDeleteBtn, originalText, "Удаление...");
+
+  removeCard(cardId)
+    .then(() => {
+      removeCardElement(cardElement);
+      closeModal(cardDeletePopupNode);
+      cardPendingDelete = null;
+    })
+    .catch((err) => {
+      console.error(`Ошибка при удалении карточки: ${err}`);
+    })
+    .finally(() => {
+      setLoadingState(false, cardDeleteBtn, originalText);
+    });
 });
 
 // Закрытие попапов по крестику и оверлею
