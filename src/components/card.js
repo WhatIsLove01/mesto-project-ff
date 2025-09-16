@@ -22,7 +22,8 @@ function createCard(
   templateNode,
   likeHandler,
   imageClickHandler,
-  deleteHandler
+  deleteHandler,
+  currentUserId // добавили параметр
 ) {
   const cardNode = templateNode.querySelector(".card").cloneNode(true);
   cardNode.dataset.cardId = cardInfo._id;
@@ -38,18 +39,17 @@ function createCard(
   titleNode.textContent = cardInfo.name;
   counterLike.textContent = cardInfo.likes.length;
 
-  const currentUserId = document.querySelector(".profile__title").dataset.userId;
-
+  // Управление кнопкой удаления
   if (cardInfo.owner && cardInfo.owner._id !== currentUserId) {
     btnDelete.style.display = "none";
   }
 
+  // Проверка, лайкнута ли карточка текущим пользователем
   const likedByUser = cardInfo.likes.some((user) => user._id === currentUserId);
   if (likedByUser) {
     btnLike.classList.add("card__like-button_is-active");
   }
 
-  // Вызываем deleteHandler напрямую — он должен открыть попап подтверждения удаления
   btnDelete.addEventListener("click", () => {
     if (typeof deleteHandler === "function") {
       deleteHandler(cardNode);

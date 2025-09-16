@@ -136,7 +136,8 @@ cardAddFormNode.addEventListener("submit", (evt) => {
           cardTemplateNode,
           handleLikeButtonClick,
           handleCardImageClick,
-          handleDeleteButtonClick
+          handleDeleteButtonClick,
+          userName.dataset.userId // <-- добавлено
         );
         cardList.prepend(newCard);
         closeModal(cardAddPopupNode);
@@ -190,7 +191,8 @@ function renderCards(cards) {
       cardTemplateNode,
       handleLikeButtonClick,
       handleCardImageClick,
-      handleDeleteButtonClick
+      handleDeleteButtonClick,
+      userName.dataset.userId // <-- добавлено
     );
     cardList.append(cardElement);
   });
