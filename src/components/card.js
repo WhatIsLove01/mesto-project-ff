@@ -66,4 +66,10 @@ function createCard(
   return cardNode;
 }
 
-export { handleLikeButtonClick, createCard };
+function removeCardElement(cardElement) {
+  if (cardElement && cardElement.remove) {
+    cardElement.remove();
+  }
+}
+
+export { handleLikeButtonClick, createCard, removeCardElement };

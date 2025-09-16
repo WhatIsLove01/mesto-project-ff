@@ -1,5 +1,5 @@
 import './pages/index.css';
-import { createCard, handleLikeButtonClick } from './components/card';
+import { createCard, handleLikeButtonClick, removeCardElement } from './components/card';
 import { openModal, closeModal } from './components/modal';
 import { clearValidation, enableValidation } from "./components/validation";
 import { addCard, getInitialCards, getUserInfo, removeCard, updateUserAvatar, updateUserProfile } from "./components/api.js";
@@ -162,7 +162,7 @@ cardDeleteBtn.addEventListener("click", () => {
     setLoadingState(true, cardDeleteBtn, originalText, "Удаление...");
     removeCard(cardId)
       .then(() => {
-        cardElement.remove();
+        removeCardElement(cardElement); 
         closeModal(cardDeletePopupNode);
       })
       .catch((err) => console.error(`Ошибка при удалении карточки: ${err}`))
