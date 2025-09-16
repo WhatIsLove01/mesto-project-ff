@@ -39,6 +39,7 @@ const imagePopupText = imagePopupNode.querySelector(".popup__caption");
 // Элементы попапа удаления карточки
 const cardDeletePopupNode = document.querySelector(".popup_type_delete-card");
 const cardDeleteBtn = cardDeletePopupNode.querySelector(".popup__button_delete");
+
 let cardPendingDelete = null;
 
 // Список всех попапов
@@ -202,9 +203,8 @@ Promise.all([getUserInfo(), getInitialCards()])
   .then(([userData, cards]) => {
     userName.textContent = userData.name;
     userAbout.textContent = userData.about;
-    const userAvatarNode = document.querySelector(".profile__image");
     if (userData.avatar) {
-      userAvatarNode.style.backgroundImage = `url(${userData.avatar})`;
+      userAvatar.style.backgroundImage = `url(${userData.avatar})`;
     }
     userName.dataset.userId = userData._id;
     renderCards(cards);

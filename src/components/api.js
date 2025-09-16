@@ -16,81 +16,78 @@ const checkResponse = (res) => {
   return Promise.reject(`Ошибка: ${res.status}`);
 };
 
-const apiBase = config.baseUrl;
-const apiHeaders = config.headers;
-
 // Получение информации о пользователе с сервера
 export const getUserInfo = () => {
-  const endpoint = `${apiBase}/users/me`;
+  const endpoint = `${config.baseUrl}/users/me`;
   return fetch(endpoint, {
-    headers: apiHeaders,
+    headers: config.headers,
   }).then(checkResponse);
 };
 
 // Получение карточек с сервера
 export const getInitialCards = () => {
-  const endpoint = `${apiBase}/cards`;
+  const endpoint = `${config.baseUrl}/cards`;
   return fetch(endpoint, {
-    headers: apiHeaders,
+    headers: config.headers,
   }).then(checkResponse);
 };
 
 // Обновление информации о пользователе
 export const updateUserProfile = (name, about) => {
-  const endpoint = `${apiBase}/users/me`;
+  const endpoint = `${config.baseUrl}/users/me`;
   const payload = { name, about };
   return fetch(endpoint, {
     method: "PATCH",
-    headers: apiHeaders,
+    headers: config.headers,
     body: JSON.stringify(payload),
   }).then(checkResponse);
 };
 
 // Добавление новой карточки
 export const addCard = (name, link) => {
-  const endpoint = `${apiBase}/cards`;
+  const endpoint = `${config.baseUrl}/cards`;
   const payload = { name, link };
   return fetch(endpoint, {
     method: "POST",
-    headers: apiHeaders,
+    headers: config.headers,
     body: JSON.stringify(payload),
   }).then(checkResponse);
 };
 
 // Удаление карточки
 export const removeCard = (cardId) => {
-  const endpoint = `${apiBase}/cards/${cardId}`;
+  const endpoint = `${config.baseUrl}/cards/${cardId}`;
   return fetch(endpoint, {
     method: "DELETE",
-    headers: apiHeaders,
+    headers: config.headers,
   }).then(checkResponse);
 };
 
 // Поставить лайк карточке
 export const likeCard = (cardId) => {
-  const endpoint = `${apiBase}/cards/likes/${cardId}`;
+  const endpoint = `${config.baseUrl}/cards/likes/${cardId}`;
   return fetch(endpoint, {
     method: "PUT",
-    headers: apiHeaders,
+    headers: config.headers,
   }).then(checkResponse);
 };
 
 // Убрать лайк с карточки
 export const unlikeCard = (cardId) => {
-  const endpoint = `${apiBase}/cards/likes/${cardId}`;
+  const endpoint = `${config.baseUrl}/cards/likes/${cardId}`;
   return fetch(endpoint, {
     method: "DELETE",
-    headers: apiHeaders,
+    headers: config.headers,
   }).then(checkResponse);
 };
 
 // Обновление аватара пользователя
 export const updateUserAvatar = (avatar) => {
-  const endpoint = `${apiBase}/users/me/avatar`;
+  const endpoint = `${config.baseUrl}/users/me/avatar`;
   const payload = { avatar };
   return fetch(endpoint, {
     method: "PATCH",
-    headers: apiHeaders,
+    headers: config.headers,
     body: JSON.stringify(payload),
   }).then(checkResponse);
 };

@@ -20,9 +20,7 @@ function checkInputValidity(formElement, inputElement, config) {
     // Проверка на соответствие регулярному выражению (только латинские и кириллические буквы, дефисы и пробелы)
     if (inputElement.validity.patternMismatch) {
       // Используем data-error-message атрибут для кастомного сообщения об ошибке
-      const errorMessage =
-        inputElement.dataset.errorMessage ||
-        "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы";
+      const errorMessage = inputElement.dataset.errorMessage;
       showInputError(formElement, inputElement, errorMessage, config);
     } else {
       showInputError(
