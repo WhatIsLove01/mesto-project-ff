@@ -1,8 +1,5 @@
-.popup_is-animated {
-    display: flex;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    user-select: none;
-    transition: visibility 0s 0.6s, opacity 0.6s;
+.popup.popup_is-opened {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
