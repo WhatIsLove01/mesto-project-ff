@@ -150,20 +150,19 @@ cardAddFormNode.addEventListener("submit", (evt) => {
 cardAddBtn.addEventListener("click", () => showPopupWithReset(cardAddFormNode, cardAddPopupNode, validationSettings));
 
 // Открытие попапа удаления карточки
-function handleDeleteButtonClick(cardElement) {
-  cardPendingDelete = cardElement;
+function handleDeleteButtonClick(cardElement, cardId) {
+  cardPendingDelete = { cardElement, cardId };
   openModal(cardDeletePopupNode);
 }
 
-// Удаление карточки
 cardDeleteBtn.addEventListener("click", () => {
   if (cardPendingDelete) {
-    const cardId = cardPendingDelete.dataset.cardId;
+    const { cardElement, cardId } = cardPendingDelete;
     const originalText = cardDeleteBtn.textContent;
     setLoadingState(true, cardDeleteBtn, originalText, "Удаление...");
     removeCard(cardId)
       .then(() => {
-        cardPendingDelete.remove();
+        cardElement.remove();
         closeModal(cardDeletePopupNode);
       })
       .catch((err) => console.error(`Ошибка при удалении карточки: ${err}`))

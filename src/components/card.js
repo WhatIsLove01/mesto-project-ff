@@ -23,10 +23,9 @@ function createCard(
   likeHandler,
   imageClickHandler,
   deleteHandler,
-  currentUserId // добавили параметр
+  currentUserId
 ) {
   const cardNode = templateNode.querySelector(".card").cloneNode(true);
-  cardNode.dataset.cardId = cardInfo._id;
 
   const imgNode = cardNode.querySelector(".card__image");
   const titleNode = cardNode.querySelector(".card__title");
@@ -50,12 +49,14 @@ function createCard(
     btnLike.classList.add("card__like-button_is-active");
   }
 
+  // Обработчик удаления карточки
   btnDelete.addEventListener("click", () => {
     if (typeof deleteHandler === "function") {
-      deleteHandler(cardNode);
+      deleteHandler(cardNode, cardInfo._id); // передаем cardId через замыкание
     }
   });
 
+  // Обработчик лайка карточки
   btnLike.addEventListener("click", (event) => {
     likeHandler(event, cardInfo._id, counterLike);
   });
