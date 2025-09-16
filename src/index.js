@@ -1,5 +1,5 @@
 import './pages/index.css';
-import { createCard, handleLikeButtonClick, deleteCard } from './components/card';
+import { createCard, handleLikeButtonClick } from './components/card';
 import { openModal, closeModal } from './components/modal';
 import { clearValidation, enableValidation } from "./components/validation";
 import { addCard, getInitialCards, getUserInfo, removeCard, updateUserAvatar, updateUserProfile } from "./components/api.js";
@@ -134,7 +134,6 @@ cardAddFormNode.addEventListener("submit", (evt) => {
         const newCard = createCard(
           cardData,
           cardTemplateNode,
-          deleteCard,
           handleLikeButtonClick,
           handleCardImageClick,
           handleDeleteButtonClick
@@ -189,7 +188,6 @@ function renderCards(cards) {
     const cardElement = createCard(
       cardData,
       cardTemplateNode,
-      deleteCard,
       handleLikeButtonClick,
       handleCardImageClick,
       handleDeleteButtonClick

@@ -1,12 +1,5 @@
 import { likeCard, unlikeCard } from "./api.js";
 
-// Удаление карточки через обработчик
-function deleteCard(cardNode, deleteHandler) {
-  if (typeof deleteHandler === "function") {
-    deleteHandler(cardNode);
-  }
-}
-
 // Обработка лайка карточки
 function handleLikeButtonClick(event, cardId, likeCounter) {
   const btnLike = event.target;
@@ -27,7 +20,6 @@ function handleLikeButtonClick(event, cardId, likeCounter) {
 function createCard(
   cardInfo,
   templateNode,
-  deleteCardHandler,
   likeHandler,
   imageClickHandler,
   deleteHandler
@@ -57,8 +49,11 @@ function createCard(
     btnLike.classList.add("card__like-button_is-active");
   }
 
+  // Вызываем deleteHandler напрямую — он должен открыть попап подтверждения удаления
   btnDelete.addEventListener("click", () => {
-    deleteCardHandler(cardNode, deleteHandler);
+    if (typeof deleteHandler === "function") {
+      deleteHandler(cardNode);
+    }
   });
 
   btnLike.addEventListener("click", (event) => {
@@ -70,5 +65,4 @@ function createCard(
   return cardNode;
 }
 
-// Экспортируем функции для использования в других модулях
-export { deleteCard, handleLikeButtonClick, createCard };
+export { handleLikeButtonClick, createCard };
